@@ -1,16 +1,15 @@
 @LayoutPage custlistframework1.html
-
-<h2>Customers</h2>
-<div class="col-md-6">
-
 @LoginRequired
 
-<table Width="100%" Border=1><Caption >All Customers</Caption>
-<TR BgColor="cyan"><TH Align="right">ID</TH><TH Align="left">First</TH><TH Align="left">Last</TH><TH Align="left">Company</TH></TR>
+<h2>Customers</h2>
+<div class="col-sm-10">
+
+<Table Width="100%" CellSpacing=10 CellPadding=8 Border=1 BgColor="White"><Caption >All Customers</Caption>
+<TR BgColor="cyan"><TH Align="right" BgColor="Silver" style="padding-right: 10px;">ID</TH><TH Align="left" BgColor="Silver">First</TH><TH Align="left" BgColor="Silver">Last</TH><TH Align="left" BgColor="Silver">Company</TH></TR>
 
   @foreach CustList {
     <tr BgColor="cyan">
-      <td Align="right">@loop.CustomerId</td>
+      <td Align="right" style="padding-right: 10px;"><a href="\custedit?cust_no=@loop.CustomerId">@loop.CustomerId</a></td>
       <td>@loop.FirstName</td>
       <td>@loop.LastName</td>
       <td>@loop.Company</td>
@@ -18,3 +17,4 @@
   }
 </table>
 </div>
+

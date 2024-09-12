@@ -120,6 +120,7 @@
         <None Include="loginfailed-wStencils.html"/>
         <None Include="custlist-wStencils.html"/>
         <None Include="accessdenied-wStencils.html"/>
+        <None Include="custedit-wStencils.html"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
@@ -153,7 +154,13 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="custlist-index.html" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="accessdenied-wStencils.html" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="custedit-wStencils.html" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -171,7 +178,7 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="error-wStencils.html" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="index-wStencils.html" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>

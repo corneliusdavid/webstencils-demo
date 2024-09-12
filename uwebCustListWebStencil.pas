@@ -58,7 +58,6 @@ begin
   try
     if not wsEngineCustList.HasVar('CustList') then
       wsEngineCustList.AddVar('CustList', dmCust.tblCustomers, False);
-
     try
       Response.Content := wspCustList.ContentFromFile('custlist-wStencils.html');
     except

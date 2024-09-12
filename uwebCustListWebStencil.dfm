@@ -19,35 +19,41 @@ object webCustListWebStencil: TwebCustListWebStencil
       Name = 'waListCustomers'
       PathInfo = '/custlist'
       OnAction = webCustListWebStencilwaListCustomersAction
+    end
+    item
+      MethodType = mtGet
+      Name = 'waEditCustomer'
+      PathInfo = '/custedit'
     end>
-  Height = 331
-  Width = 415
+  Height = 414
+  Width = 519
+  PixelsPerInch = 120
   object wspIndex: TWebStencilsProcessor
     Engine = wsEngineCustList
     InputFileName = 'index-wStencils.html'
-    Left = 104
-    Top = 104
+    Left = 130
+    Top = 130
   end
   object wsEngineCustList: TWebStencilsEngine
     PathTemplates = <>
-    Left = 64
-    Top = 32
+    Left = 80
+    Top = 40
   end
   object wspLoginFailed: TWebStencilsProcessor
     Engine = wsEngineCustList
     InputFileName = 'loginfailed-wStencils.html'
-    Left = 104
-    Top = 168
+    Left = 130
+    Top = 210
   end
   object wspCustList: TWebStencilsProcessor
     Engine = wsEngineCustList
-    Left = 208
-    Top = 128
+    Left = 260
+    Top = 160
   end
   object wspAccessDenied: TWebStencilsProcessor
     Engine = wsEngineCustList
     InputFileName = 'accessdenied-wStencils.html'
-    Left = 112
-    Top = 232
+    Left = 140
+    Top = 290
   end
 end
