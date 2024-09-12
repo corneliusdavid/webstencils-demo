@@ -24,6 +24,7 @@ object webCustListWebStencil: TwebCustListWebStencil
       MethodType = mtGet
       Name = 'waEditCustomer'
       PathInfo = '/custedit'
+      OnAction = webCustListWebStencilwaEditCustomerAction
     end>
   Height = 414
   Width = 519
@@ -36,6 +37,7 @@ object webCustListWebStencil: TwebCustListWebStencil
   end
   object wsEngineCustList: TWebStencilsEngine
     PathTemplates = <>
+    OnError = wsEngineCustListError
     Left = 80
     Top = 40
   end
@@ -47,6 +49,7 @@ object webCustListWebStencil: TwebCustListWebStencil
   end
   object wspCustList: TWebStencilsProcessor
     Engine = wsEngineCustList
+    InputFileName = 'custlist-wStencils.html'
     Left = 260
     Top = 160
   end
@@ -55,5 +58,11 @@ object webCustListWebStencil: TwebCustListWebStencil
     InputFileName = 'accessdenied-wStencils.html'
     Left = 140
     Top = 290
+  end
+  object wspCustEdit: TWebStencilsProcessor
+    Engine = wsEngineCustList
+    InputFileName = 'custedit-wStencils.html'
+    Left = 260
+    Top = 240
   end
 end

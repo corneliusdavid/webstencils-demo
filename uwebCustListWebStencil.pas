@@ -12,6 +12,7 @@ type
     wspLoginFailed: TWebStencilsProcessor;
     wspCustList: TWebStencilsProcessor;
     wspAccessDenied: TWebStencilsProcessor;
+    wspCustEdit: TWebStencilsProcessor;
     procedure WebModuleCreate(Sender: TObject);
     procedure webCustListWebStencilDefaultHandlerAction(Sender: TObject; Request: TWebRequest; Response: TWebResponse;
       var Handled: Boolean);
@@ -19,6 +20,9 @@ type
       var Handled: Boolean);
     procedure webCustListWebStencilwaListCustomersAction(Sender: TObject; Request: TWebRequest; Response: TWebResponse;
       var Handled: Boolean);
+    procedure webCustListWebStencilwaEditCustomerAction(Sender: TObject; Request: TWebRequest; Response: TWebResponse;
+      var Handled: Boolean);
+    procedure wsEngineCustListError(Sender: TObject; const AMessage: string);
   private
     FVersion: string;
     FTitle: string;
@@ -42,6 +46,7 @@ implementation
 {$R *.dfm}
 
 uses
+  Dialogs,
   udmCust;
 
 procedure TwebCustListWebStencil.webCustListWebStencilDefaultHandlerAction(Sender: TObject; Request: TWebRequest;
@@ -49,6 +54,33 @@ procedure TwebCustListWebStencil.webCustListWebStencilDefaultHandlerAction(Sende
 begin
   Response.Content := wspIndex.Content;
   Handled := True;
+end;
+
+procedure TwebCustListWebStencil.webCustListWebStencilwaEditCustomerAction(Sender: TObject; Request: TWebRequest;
+  Response: TWebResponse; var Handled: Boolean);
+var
+  CustNo: string;
+  CustNum: Integer;
+begin
+  if Request.QueryFields.Count > 0 then
+  begin
+    CustNo := Request.QueryFields.Values['cust_no'];
+    if TryStrToInt(CustNo, CustNum) then
+    begin
+      dmCust.tblCustomers.Filter := 'CustomerId = ' + CustNo;
+      dmCust.tblCustomers.Filtered := True;
+      dmCust.tblCustomers.Open;
+      if not wsEngineCustList.HasVar('CustList') then
+        wsEngineCustList.AddVar('CustList', dmCust.tblCustomers, False);
+      try
+        Response.Content := wspCustEdit.Content;
+      except
+        on E:EWebStencilsLoginRequired do
+          Response.Content := wspAccessDenied.Content;
+      end;
+      dmCust.tblCustomers.Close;
+    end;
+  end;
 end;
 
 procedure TwebCustListWebStencil.webCustListWebStencilwaListCustomersAction(Sender: TObject; Request: TWebRequest;
@@ -59,7 +91,7 @@ begin
     if not wsEngineCustList.HasVar('CustList') then
       wsEngineCustList.AddVar('CustList', dmCust.tblCustomers, False);
     try
-      Response.Content := wspCustList.ContentFromFile('custlist-wStencils.html');
+      Response.Content := wspCustList.Content;
     except
       on E:EWebStencilsLoginRequired do
         Response.Content := wspAccessDenied.Content;
@@ -79,6 +111,7 @@ begin
   if dmCust.LoginCheck(Username, Password) then
   begin
     wspCustList.UserLoggedIn := True;
+    wspCustEdit.UserLoggedIn := True;
     Response.SendRedirect('/custlist');
   end else
     Response.Content := wspLoginFailed.Content;
@@ -91,6 +124,11 @@ begin
   FTitle := WebTitle;
   FVersion := WebVersion;
   wsEngineCustList.AddVar('App', Self, False);
+end;
+
+procedure TwebCustListWebStencil.wsEngineCustListError(Sender: TObject; const AMessage: string);
+begin
+  ShowMessage(AMessage);
 end;
 
 end.
