@@ -4,7 +4,8 @@ object dmCust: TdmCust
   PixelsPerInch = 120
   object FDConnChinook: TFDConnection
     Params.Strings = (
-      'ConnectionDef=Chinook')
+      'Database=V:\webstencils-demo\chinook.db'
+      'DriverID=SQLite')
     ConnectedStoredUsage = [auDesignTime]
     Connected = True
     LoginPrompt = False
@@ -17,12 +18,11 @@ object dmCust: TdmCust
   end
   object tblCustomers: TFDTable
     ActiveStoredUsage = [auDesignTime]
-    Active = True
     Filter = 'CustomerId = 16'
     IndexFieldNames = 'CustomerId'
     Connection = FDConnChinook
     ResourceOptions.AssignedValues = [rvEscapeExpand]
-    TableName = 'Customer'
+    TableName = 'Customers'
     Left = 300
     Top = 170
     object tblCustomersCustomerId: TIntegerField
@@ -96,8 +96,8 @@ object dmCust: TdmCust
   object qryUserVerify: TFDQuery
     Connection = FDConnChinook
     SQL.Strings = (
-      'SELECT FirstName, LastName, EmployeeID, Title'
-      'FROM Employee'
+      'SELECT FirstName, LastName, EmployeeID'
+      'FROM Employees'
       'WHERE Upper(FirstName) = Upper(:FName)'
       '  AND :Password = EmployeeId || LastName;')
     Left = 300
@@ -119,7 +119,7 @@ object dmCust: TdmCust
   object qryCustCount: TFDQuery
     Connection = FDConnChinook
     SQL.Strings = (
-      'select count(1) as CustCount from customer')
+      'select count(1) as CustCount from customers')
     Left = 360
     Top = 270
     object qryCustCountCustCount: TLargeintField
