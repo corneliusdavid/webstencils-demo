@@ -19,26 +19,33 @@ object webCustListWebBroker: TwebCustListWebBroker
       Name = 'waListCustomers'
       PathInfo = '/custlist'
       OnAction = webCustListWebBrokerwaListCustomersAction
+    end
+    item
+      MethodType = mtGet
+      Name = 'waEditCustomer'
+      PathInfo = '/custedit'
+      OnAction = webCustListWebBrokerwaEditCustomerAction
     end>
-  Height = 298
-  Width = 498
+  Height = 425
+  Width = 623
+  PixelsPerInch = 120
   object ppIndex: TPageProducer
     HTMLFile = 'index-wbroker.html'
     OnHTMLTag = ppAllHTMLTags
-    Left = 120
-    Top = 64
+    Left = 150
+    Top = 80
   end
   object ppCustList: TPageProducer
     HTMLFile = 'custlist-wbroker.html'
     OnHTMLTag = ppAllHTMLTags
-    Left = 120
-    Top = 152
+    Left = 134
+    Top = 190
   end
   object ppLoginFailed: TPageProducer
     HTMLFile = 'loginfailed-wbroker.html'
     OnHTMLTag = ppAllHTMLTags
-    Left = 200
-    Top = 96
+    Left = 274
+    Top = 40
   end
   object ppPageFooter: TPageProducer
     HTMLDoc.Strings = (
@@ -53,8 +60,8 @@ object webCustListWebBroker: TwebCustListWebBroker
       '</body>'
       '</html>')
     OnHTMLTag = ppAllHTMLTags
-    Left = 352
-    Top = 88
+    Left = 440
+    Top = 110
   end
   object ppPageHeader: TPageProducer
     HTMLDoc.Strings = (
@@ -75,6 +82,68 @@ object webCustListWebBroker: TwebCustListWebBroker
       
         '  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/j' +
         's/bootstrap.min.js"></script>'
+      '<style>'
+      '        body {'
+      '            font-family: Arial, sans-serif;'
+      '            line-height: 1.6;'
+      '            margin: 0;'
+      '            padding: 20px;'
+      '            background-color: #f4f4f4;'
+      '        }'
+      '        .container {'
+      '            max-width: 800px;'
+      '            margin: auto;'
+      '            background: white;'
+      '            padding: 20px;'
+      '            border-radius: 5px;'
+      '            box-shadow: 0 0 10px rgba(0,0,0,0.1);'
+      '        }'
+      '        h1 {'
+      '            text-align: center;'
+      '            color: #333;'
+      '        }'
+      '        form {'
+      '            display: grid;'
+      '            gap: 10px;'
+      '        }'
+      '        .form-group {'
+      '            display: flex;'
+      '            align-items: center;'
+      '        }'
+      '        label {'
+      '            font-weight: bold;'
+      '            width: 150px;'
+      '            text-align: right;'
+      '            margin-right: 10px;'
+      '        }'
+      '        input, select {'
+      '            flex: 1;'
+      '            padding: 8px;'
+      '            border: 1px solid #ddd;'
+      '            border-radius: 4px;'
+      '            box-sizing: border-box;'
+      '        }'
+      '        .input-group {'
+      '            display: flex;'
+      '            gap: 10px;'
+      '        }'
+      '        .input-group input {'
+      '            flex: 1;'
+      '        }'
+      '        button {'
+      '            background-color: #4CAF50;'
+      '            color: white;'
+      '            padding: 10px 15px;'
+      '            border: none;'
+      '            border-radius: 4px;'
+      '            cursor: pointer;'
+      '            font-size: 16px;'
+      '            margin-left: 160px;'
+      '        }'
+      '        button:hover {'
+      '            background-color: #45a049;'
+      '        }'
+      '    </style>'
       '</head>'
       '<body>'
       ''
@@ -93,45 +162,61 @@ object webCustListWebBroker: TwebCustListWebBroker
         '  <div class="col-lg-12 bg-light justify-content-center shadow p' +
         '-3 mb-5 bg-body rounded">')
     OnHTMLTag = ppAllHTMLTags
-    Left = 352
-    Top = 40
+    Left = 440
+    Top = 50
   end
   object pptblCustomers: TDataSetTableProducer
     Caption = 'All Customers'
     Columns = <
       item
         Align = haRight
+        Custom = 'style="padding-right: 10px;"'
         FieldName = 'CustomerId'
+        Title.Custom = 'style="padding-right: 10px;"'
         Title.Align = haRight
+        Title.BgColor = 'Silver'
         Title.Caption = 'ID'
       end
       item
         FieldName = 'FirstName'
         Title.Align = haLeft
+        Title.BgColor = 'Silver'
         Title.Caption = 'First'
       end
       item
         FieldName = 'LastName'
         Title.Align = haLeft
+        Title.BgColor = 'Silver'
         Title.Caption = 'Last'
       end
       item
         FieldName = 'Company'
         Title.Align = haLeft
+        Title.BgColor = 'Silver'
         Title.Caption = 'Company'
       end>
     MaxRows = 0
     DataSet = dmCust.tblCustomers
     RowAttributes.BgColor = 'cyan'
+    TableAttributes.BgColor = 'White'
     TableAttributes.Border = 1
+    TableAttributes.CellSpacing = 10
+    TableAttributes.CellPadding = 8
     OnCreateContent = pptblCustomersCreateContent
-    Left = 296
-    Top = 192
+    OnFormatCell = pptblCustomersFormatCell
+    Left = 370
+    Top = 240
   end
   object ppAccessDenied: TPageProducer
     HTMLFile = 'accessdenied-wbroker.html'
     OnHTMLTag = ppAllHTMLTags
-    Left = 200
-    Top = 160
+    Left = 282
+    Top = 128
+  end
+  object ppCustEdit: TPageProducer
+    HTMLFile = 'custedit-wbroker.html'
+    OnHTMLTag = ppCustEditHTMLTag
+    Left = 152
+    Top = 296
   end
 end

@@ -1,27 +1,30 @@
 object dmCust: TdmCust
-  Height = 315
-  Width = 427
+  Height = 394
+  Width = 534
+  PixelsPerInch = 120
   object FDConnChinook: TFDConnection
     Params.Strings = (
-      'Database=.\Chinook.db'
-      'DriverID=SQLite')
+      'ConnectionDef=Chinook')
     ConnectedStoredUsage = [auDesignTime]
+    Connected = True
     LoginPrompt = False
-    Left = 136
-    Top = 104
+    Left = 170
+    Top = 130
   end
   object FDPhysSQLiteDriverLink1: TFDPhysSQLiteDriverLink
-    Left = 144
-    Top = 176
+    Left = 180
+    Top = 220
   end
   object tblCustomers: TFDTable
     ActiveStoredUsage = [auDesignTime]
+    Active = True
+    Filter = 'CustomerId = 16'
     IndexFieldNames = 'CustomerId'
     Connection = FDConnChinook
     ResourceOptions.AssignedValues = [rvEscapeExpand]
     TableName = 'Customer'
-    Left = 240
-    Top = 136
+    Left = 300
+    Top = 170
     object tblCustomersCustomerId: TIntegerField
       FieldName = 'CustomerId'
       Origin = 'CustomerId'
@@ -97,8 +100,8 @@ object dmCust: TdmCust
       'FROM Employee'
       'WHERE Upper(FirstName) = Upper(:FName)'
       '  AND :Password = EmployeeId || LastName;')
-    Left = 240
-    Top = 56
+    Left = 300
+    Top = 70
     ParamData = <
       item
         Name = 'FNAME'
@@ -117,8 +120,8 @@ object dmCust: TdmCust
     Connection = FDConnChinook
     SQL.Strings = (
       'select count(1) as CustCount from customer')
-    Left = 288
-    Top = 216
+    Left = 360
+    Top = 270
     object qryCustCountCustCount: TLargeintField
       AutoGenerateValue = arDefault
       FieldName = 'CustCount'
