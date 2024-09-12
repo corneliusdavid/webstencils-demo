@@ -8,7 +8,7 @@
 <TR BgColor="cyan"><TH Align="right" BgColor="Silver" style="padding-right: 10px;">ID</TH><TH Align="left" BgColor="Silver">First</TH><TH Align="left" BgColor="Silver">Last</TH><TH Align="left" BgColor="Silver">Company</TH></TR>
 
   @foreach CustList {
-    <tr BgColor="cyan">
+    <tr>
       <td Align="right" style="padding-right: 10px;"><a href="\custedit?cust_no=@loop.CustomerId">@loop.CustomerId</a></td>
       <td>@loop.FirstName</td>
       <td>@loop.LastName</td>

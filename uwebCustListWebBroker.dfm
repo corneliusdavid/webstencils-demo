@@ -197,7 +197,6 @@ object webCustListWebBroker: TwebCustListWebBroker
       end>
     MaxRows = 0
     DataSet = dmCust.tblCustomers
-    RowAttributes.BgColor = 'cyan'
     TableAttributes.BgColor = 'White'
     TableAttributes.Border = 1
     TableAttributes.CellSpacing = 10
