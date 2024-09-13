@@ -26,26 +26,25 @@ object webCustListWebBroker: TwebCustListWebBroker
       PathInfo = '/custedit'
       OnAction = webCustListWebBrokerwaEditCustomerAction
     end>
-  Height = 425
-  Width = 623
-  PixelsPerInch = 120
+  Height = 340
+  Width = 498
   object ppIndex: TPageProducer
     HTMLFile = 'index-wbroker.html'
     OnHTMLTag = ppAllHTMLTags
-    Left = 150
-    Top = 80
+    Left = 120
+    Top = 64
   end
   object ppCustList: TPageProducer
     HTMLFile = 'custlist-wbroker.html'
     OnHTMLTag = ppAllHTMLTags
-    Left = 134
-    Top = 190
+    Left = 107
+    Top = 152
   end
   object ppLoginFailed: TPageProducer
     HTMLFile = 'loginfailed-wbroker.html'
     OnHTMLTag = ppAllHTMLTags
-    Left = 274
-    Top = 40
+    Left = 219
+    Top = 32
   end
   object ppPageFooter: TPageProducer
     HTMLDoc.Strings = (
@@ -60,8 +59,8 @@ object webCustListWebBroker: TwebCustListWebBroker
       '</body>'
       '</html>')
     OnHTMLTag = ppAllHTMLTags
-    Left = 440
-    Top = 110
+    Left = 352
+    Top = 88
   end
   object ppPageHeader: TPageProducer
     HTMLDoc.Strings = (
@@ -162,8 +161,8 @@ object webCustListWebBroker: TwebCustListWebBroker
         '  <div class="col-lg-12 bg-light justify-content-center shadow p' +
         '-3 mb-5 bg-body rounded">')
     OnHTMLTag = ppAllHTMLTags
-    Left = 440
-    Top = 50
+    Left = 352
+    Top = 40
   end
   object pptblCustomers: TDataSetTableProducer
     Caption = 'All Customers'
@@ -196,26 +195,26 @@ object webCustListWebBroker: TwebCustListWebBroker
         Title.Caption = 'Company'
       end>
     MaxRows = 0
-    DataSet = dmCust.tblCustomers
+    DataSet = dmCust.qryCustomers
     TableAttributes.BgColor = 'White'
     TableAttributes.Border = 1
     TableAttributes.CellSpacing = 10
     TableAttributes.CellPadding = 8
     OnCreateContent = pptblCustomersCreateContent
     OnFormatCell = pptblCustomersFormatCell
-    Left = 370
-    Top = 240
+    Left = 296
+    Top = 192
   end
   object ppAccessDenied: TPageProducer
     HTMLFile = 'accessdenied-wbroker.html'
     OnHTMLTag = ppAllHTMLTags
-    Left = 282
-    Top = 128
+    Left = 226
+    Top = 102
   end
   object ppCustEdit: TPageProducer
     HTMLFile = 'custedit-wbroker.html'
     OnHTMLTag = ppCustEditHTMLTag
-    Left = 152
-    Top = 296
+    Left = 122
+    Top = 237
   end
 end

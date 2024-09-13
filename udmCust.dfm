@@ -1,97 +1,18 @@
 object dmCust: TdmCust
-  Height = 394
-  Width = 534
-  PixelsPerInch = 120
+  Height = 315
+  Width = 427
   object FDConnChinook: TFDConnection
     Params.Strings = (
-      'Database=V:\webstencils-demo\chinook.db'
-      'DriverID=SQLite')
+      'ConnectionDef=WebStencilsChinook')
     ConnectedStoredUsage = [auDesignTime]
     Connected = True
     LoginPrompt = False
-    Left = 170
-    Top = 130
+    Left = 136
+    Top = 104
   end
   object FDPhysSQLiteDriverLink1: TFDPhysSQLiteDriverLink
-    Left = 180
-    Top = 220
-  end
-  object tblCustomers: TFDTable
-    ActiveStoredUsage = [auDesignTime]
-    Filter = 'CustomerId = 16'
-    IndexFieldNames = 'CustomerId'
-    Connection = FDConnChinook
-    ResourceOptions.AssignedValues = [rvEscapeExpand]
-    TableName = 'Customers'
-    Left = 300
-    Top = 170
-    object tblCustomersCustomerId: TIntegerField
-      FieldName = 'CustomerId'
-      Origin = 'CustomerId'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object tblCustomersFirstName: TWideStringField
-      FieldName = 'FirstName'
-      Origin = 'FirstName'
-      Required = True
-      Size = 40
-    end
-    object tblCustomersLastName: TWideStringField
-      FieldName = 'LastName'
-      Origin = 'LastName'
-      Required = True
-    end
-    object tblCustomersCompany: TWideStringField
-      FieldName = 'Company'
-      Origin = 'Company'
-      Size = 80
-    end
-    object tblCustomersAddress: TWideStringField
-      FieldName = 'Address'
-      Origin = 'Address'
-      Size = 70
-    end
-    object tblCustomersCity: TWideStringField
-      FieldName = 'City'
-      Origin = 'City'
-      Size = 40
-    end
-    object tblCustomersState: TWideStringField
-      FieldName = 'State'
-      Origin = 'State'
-      Size = 40
-    end
-    object tblCustomersCountry: TWideStringField
-      FieldName = 'Country'
-      Origin = 'Country'
-      Size = 40
-    end
-    object tblCustomersPostalCode: TWideStringField
-      FieldName = 'PostalCode'
-      Origin = 'PostalCode'
-      Size = 10
-    end
-    object tblCustomersPhone: TWideStringField
-      FieldName = 'Phone'
-      Origin = 'Phone'
-      Size = 24
-    end
-    object tblCustomersFax: TWideStringField
-      FieldName = 'Fax'
-      Origin = 'Fax'
-      Size = 24
-    end
-    object tblCustomersEmail: TWideStringField
-      FieldName = 'Email'
-      Origin = 'Email'
-      Required = True
-      Size = 60
-    end
-    object tblCustomersSupportRepId: TIntegerField
-      FieldName = 'SupportRepId'
-      Origin = 'SupportRepId'
-    end
+    Left = 144
+    Top = 176
   end
   object qryUserVerify: TFDQuery
     Connection = FDConnChinook
@@ -100,8 +21,8 @@ object dmCust: TdmCust
       'FROM Employees'
       'WHERE Upper(FirstName) = Upper(:FName)'
       '  AND :Password = EmployeeId || LastName;')
-    Left = 300
-    Top = 70
+    Left = 240
+    Top = 56
     ParamData = <
       item
         Name = 'FNAME'
@@ -120,14 +41,138 @@ object dmCust: TdmCust
     Connection = FDConnChinook
     SQL.Strings = (
       'select count(1) as CustCount from customers')
-    Left = 360
-    Top = 270
+    Left = 256
+    Top = 216
     object qryCustCountCustCount: TLargeintField
       AutoGenerateValue = arDefault
       FieldName = 'CustCount'
       Origin = 'CustCount'
       ProviderFlags = []
       ReadOnly = True
+    end
+  end
+  object qryCustomers: TFDQuery
+    Connection = FDConnChinook
+    SQL.Strings = (
+      'SELECT c.CustomerId, c.FirstName, c.LastName, c.Company, '
+      '  COUNT(i.InvoiceId) AS InvCount, SUM(i.Total) AS TotalInvoices'
+      'FROM customers c'
+      'JOIN invoices i ON c.CustomerId = i.CustomerId '
+      'GROUP BY c.CustomerId '
+      'ORDER BY c.LastName'
+      ' ')
+    Left = 256
+    Top = 136
+    object qryCustomersCustomerId: TFDAutoIncField
+      FieldName = 'CustomerId'
+      Origin = 'CustomerId'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = False
+    end
+    object qryCustomersFirstName: TWideStringField
+      FieldName = 'FirstName'
+      Origin = 'FirstName'
+      Required = True
+      Size = 40
+    end
+    object qryCustomersLastName: TWideStringField
+      FieldName = 'LastName'
+      Origin = 'LastName'
+      Required = True
+    end
+    object qryCustomersCompany: TWideStringField
+      FieldName = 'Company'
+      Origin = 'Company'
+      Size = 80
+    end
+    object qryCustomersInvCount: TLargeintField
+      AutoGenerateValue = arDefault
+      FieldName = 'InvCount'
+      Origin = 'InvCount'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+    object qryCustomersTotalInvoices: TFloatField
+      AutoGenerateValue = arDefault
+      FieldName = 'TotalInvoices'
+      Origin = 'TotalInvoices'
+      ProviderFlags = []
+      ReadOnly = True
+    end
+  end
+  object qryCustDetails: TFDQuery
+    Connection = FDConnChinook
+    SQL.Strings = (
+      'SELECT CustomerId, FirstName, LastName, Company,'
+      '  Address, City, [State], Country, PostalCode, Phone, Email'
+      'FROM Customers'
+      'WHERE CustomerId = :CustID')
+    Left = 328
+    Top = 160
+    ParamData = <
+      item
+        Name = 'CUSTID'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = 3
+      end>
+    object qryCustDetailsCustomerId: TFDAutoIncField
+      FieldName = 'CustomerId'
+      Origin = 'CustomerId'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = False
+    end
+    object qryCustDetailsFirstName: TWideStringField
+      FieldName = 'FirstName'
+      Origin = 'FirstName'
+      Required = True
+      Size = 40
+    end
+    object qryCustDetailsLastName: TWideStringField
+      FieldName = 'LastName'
+      Origin = 'LastName'
+      Required = True
+    end
+    object qryCustDetailsCompany: TWideStringField
+      FieldName = 'Company'
+      Origin = 'Company'
+      Size = 80
+    end
+    object qryCustDetailsAddress: TWideStringField
+      FieldName = 'Address'
+      Origin = 'Address'
+      Size = 70
+    end
+    object qryCustDetailsCity: TWideStringField
+      FieldName = 'City'
+      Origin = 'City'
+      Size = 40
+    end
+    object qryCustDetailsState: TWideStringField
+      FieldName = 'State'
+      Origin = 'State'
+      Size = 40
+    end
+    object qryCustDetailsCountry: TWideStringField
+      FieldName = 'Country'
+      Origin = 'Country'
+      Size = 40
+    end
+    object qryCustDetailsPostalCode: TWideStringField
+      FieldName = 'PostalCode'
+      Origin = 'PostalCode'
+      Size = 10
+    end
+    object qryCustDetailsPhone: TWideStringField
+      FieldName = 'Phone'
+      Origin = 'Phone'
+      Size = 24
+    end
+    object qryCustDetailsEmail: TWideStringField
+      FieldName = 'Email'
+      Origin = 'Email'
+      Required = True
+      Size = 60
     end
   end
 end

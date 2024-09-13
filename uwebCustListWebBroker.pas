@@ -69,25 +69,25 @@ procedure TwebCustListWebBroker.ppCustEditHTMLTag(Sender: TObject; Tag: TTag; co
   TagParams: TStrings; var ReplaceText: string);
 begin
   if SameText(TagString, 'Company') then
-    ReplaceText := dmCust.tblCustomersCompany.AsString
+    ReplaceText := dmCust.qryCustDetailsCompany.AsString
   else if SameText(TagString, 'FirstName') then
-    ReplaceText := dmcust.tblCustomersFirstName.AsString
+    ReplaceText := dmcust.qryCustDetailsFirstName.AsString
   else if SameText(TagString, 'LastName') then
-    ReplaceText := dmCust.tblCustomersLastName.AsString
+    ReplaceText := dmCust.qryCustDetailsLastName.AsString
   else if SameText(TagString, 'Address') then
-    ReplaceText := dmCust.tblCustomersAddress.AsString
+    ReplaceText := dmCust.qryCustDetailsAddress.AsString
   else if SameText(TagString, 'City') then
-    ReplaceText := dmCust.tblCustomersCity.AsString
+    ReplaceText := dmCust.qryCustDetailsCity.AsString
   else if SameText(TagString, 'State') then
-    ReplaceText := dmCust.tblCustomersState.AsString
+    ReplaceText := dmCust.qryCustDetailsState.AsString
   else if SameText(TagString, 'Country') then
-    ReplaceText := dmCust.tblCustomersCountry.AsString
+    ReplaceText := dmCust.qryCustDetailsCountry.AsString
   else if SameText(TagString, 'Zip') then
-    ReplaceText := dmCust.tblCustomersPostalCode.AsString
+    ReplaceText := dmCust.qryCustDetailsPostalCode.AsString
   else if SameText(TagString, 'Email') then
-    ReplaceText := dmCust.tblCustomersEmail.AsString
+    ReplaceText := dmCust.qryCustDetailsEmail.AsString
   else if SameText(TagString, 'Phone') then
-    ReplaceText := dmCust.tblCustomersPhone.AsString
+    ReplaceText := dmCust.qryCustDetailsPhone.AsString
   else
     ppAllHTMLTags(Sender, Tag, TagString, TagParams, ReplaceText);
 end;
@@ -101,8 +101,10 @@ end;
 procedure TwebCustListWebBroker.pptblCustomersFormatCell(Sender: TObject; CellRow, CellColumn: Integer;
   var BgColor: THTMLBgColor; var Align: THTMLAlign; var VAlign: THTMLVAlign; var CustomAttrs, CellData: string);
 begin
-  if (CellColumn = 0) and (CellRow > 0) then
-    CellData := Format('<a href="\custedit?cust_no=%s">%s</a>', [CellData, CellData]);
+  if CellRow > 0 then begin
+    if CellColumn = 0 then // CustomerID
+      CellData := Format('<a href="\custedit?cust_no=%s">%s</a>', [CellData, CellData]);
+  end;
 end;
 
 procedure TwebCustListWebBroker.webCustListWebBrokerwaEditCustomerAction(Sender: TObject; Request: TWebRequest;
@@ -120,11 +122,9 @@ begin
       CustNo := Request.QueryFields.Values['cust_no'];
       if TryStrToInt(CustNo, CustNum) then
       begin
-        dmCust.tblCustomers.Filter := 'CustomerId = ' + CustNo;
-        dmCust.tblCustomers.Filtered := True;
-        dmCust.tblCustomers.Open;
+        dmCust.OpenCustDetails(CustNum);
         Response.Content := ppCustEdit.Content;
-        dmCust.tblCustomers.Close;
+        dmCust.CloseCustDetails;
       end;
     end;
   end;
@@ -138,10 +138,7 @@ begin
   if not IsLoggedIn then
     Response.Content := ppAccessDenied.Content
   else
-  begin
-    dmCust.tblCustomers.Filtered := False;
     Response.Content := ppCustList.Content;
-  end;
 
   Handled := True;
 end;

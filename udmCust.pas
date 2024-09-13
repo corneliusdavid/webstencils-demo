@@ -12,26 +12,33 @@ type
   TdmCust = class(TDataModule)
     FDConnChinook: TFDConnection;
     FDPhysSQLiteDriverLink1: TFDPhysSQLiteDriverLink;
-    tblCustomers: TFDTable;
-    tblCustomersCustomerId: TIntegerField;
-    tblCustomersFirstName: TWideStringField;
-    tblCustomersLastName: TWideStringField;
-    tblCustomersCompany: TWideStringField;
-    tblCustomersAddress: TWideStringField;
-    tblCustomersCity: TWideStringField;
-    tblCustomersState: TWideStringField;
-    tblCustomersCountry: TWideStringField;
-    tblCustomersPostalCode: TWideStringField;
-    tblCustomersPhone: TWideStringField;
-    tblCustomersFax: TWideStringField;
-    tblCustomersEmail: TWideStringField;
-    tblCustomersSupportRepId: TIntegerField;
     qryUserVerify: TFDQuery;
     qryCustCount: TFDQuery;
     qryCustCountCustCount: TLargeintField;
+    qryCustomers: TFDQuery;
+    qryCustomersCustomerId: TFDAutoIncField;
+    qryCustomersFirstName: TWideStringField;
+    qryCustomersLastName: TWideStringField;
+    qryCustomersInvCount: TLargeintField;
+    qryCustomersTotalInvoices: TFloatField;
+    qryCustomersCompany: TWideStringField;
+    qryCustDetails: TFDQuery;
+    qryCustDetailsCustomerId: TFDAutoIncField;
+    qryCustDetailsFirstName: TWideStringField;
+    qryCustDetailsLastName: TWideStringField;
+    qryCustDetailsCompany: TWideStringField;
+    qryCustDetailsAddress: TWideStringField;
+    qryCustDetailsCity: TWideStringField;
+    qryCustDetailsState: TWideStringField;
+    qryCustDetailsCountry: TWideStringField;
+    qryCustDetailsPostalCode: TWideStringField;
+    qryCustDetailsPhone: TWideStringField;
+    qryCustDetailsEmail: TWideStringField;
   public
     function LoginCheck(const Username, Password: string): Boolean;
     function CustCount: Integer;
+    procedure OpenCustDetails(const CustID: Integer);
+    procedure CloseCustDetails;
   end;
 
 var
@@ -59,6 +66,17 @@ begin
   qryUserVerify.Open;
   Result := qryUserVerify.RecordCount > 0;
   qryUserVerify.Close;
+end;
+
+procedure TdmCust.OpenCustDetails(const CustID: Integer);
+begin
+  qryCustDetails.ParamByName('CustID').AsInteger := CustID;
+  qryCustDetails.Open;
+end;
+
+procedure TdmCust.CloseCustDetails;
+begin
+  qryCustDetails.Close;
 end;
 
 end.

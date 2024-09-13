@@ -46,7 +46,7 @@ implementation
 {$R *.dfm}
 
 uses
-  Dialogs,
+  Dialogs, System.bindings.EvalProtocol, System.Bindings.Methods,
   udmCust;
 
 procedure TwebCustListWebStencil.webCustListWebStencilDefaultHandlerAction(Sender: TObject; Request: TWebRequest;
@@ -67,18 +67,16 @@ begin
     CustNo := Request.QueryFields.Values['cust_no'];
     if TryStrToInt(CustNo, CustNum) then
     begin
-      dmCust.tblCustomers.Filter := 'CustomerId = ' + CustNo;
-      dmCust.tblCustomers.Filtered := True;
-      dmCust.tblCustomers.Open;
-      if not wsEngineCustList.HasVar('CustList') then
-        wsEngineCustList.AddVar('CustList', dmCust.tblCustomers, False);
+      dmCust.OpenCustDetails(CustNum);
+      if not wsEngineCustList.HasVar('CustDetails') then
+        wsEngineCustList.AddVar('CustDetails', dmCust.qryCustDetails, False);
       try
         Response.Content := wspCustEdit.Content;
       except
         on E:EWebStencilsLoginRequired do
           Response.Content := wspAccessDenied.Content;
       end;
-      dmCust.tblCustomers.Close;
+      dmCust.CloseCustDetails;
     end;
   end;
 end;
@@ -86,10 +84,10 @@ end;
 procedure TwebCustListWebStencil.webCustListWebStencilwaListCustomersAction(Sender: TObject; Request: TWebRequest;
   Response: TWebResponse; var Handled: Boolean);
 begin
-  dmCust.tblCustomers.Open;
+  dmCust.qryCustomers.Open;
   try
     if not wsEngineCustList.HasVar('CustList') then
-      wsEngineCustList.AddVar('CustList', dmCust.tblCustomers, False);
+      wsEngineCustList.AddVar('CustList', dmCust.qryCustomers, False);
     try
       Response.Content := wspCustList.Content;
     except
@@ -97,7 +95,7 @@ begin
         Response.Content := wspAccessDenied.Content;
     end;
   finally
-    dmCust.tblCustomers.Close;
+    dmCust.qryCustomers.Close;
   end;
 end;
 
