@@ -34,6 +34,8 @@ type
     qryCustDetailsPostalCode: TWideStringField;
     qryCustDetailsPhone: TWideStringField;
     qryCustDetailsEmail: TWideStringField;
+    qryCustomersIsBusiness: TBooleanField;
+    procedure qryCustomersCalcFields(DataSet: TDataSet);
   public
     function LoginCheck(const Username, Password: string): Boolean;
     function CustCount: Integer;
@@ -72,6 +74,11 @@ procedure TdmCust.OpenCustDetails(const CustID: Integer);
 begin
   qryCustDetails.ParamByName('CustID').AsInteger := CustID;
   qryCustDetails.Open;
+end;
+
+procedure TdmCust.qryCustomersCalcFields(DataSet: TDataSet);
+begin
+  qryCustomersIsBusiness.AsBoolean := qryCustomersCompany.AsString.Length > 0;
 end;
 
 procedure TdmCust.CloseCustDetails;

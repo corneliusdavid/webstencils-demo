@@ -103,7 +103,9 @@ procedure TwebCustListWebBroker.pptblCustomersFormatCell(Sender: TObject; CellRo
 begin
   if CellRow > 0 then begin
     if CellColumn = 0 then // CustomerID
-      CellData := Format('<a href="\custedit?cust_no=%s">%s</a>', [CellData, CellData]);
+      CellData := Format('<a href="\custedit?cust_no=%s">%s</a>', [CellData, CellData])
+    else if pptblCustomers.DataSet.FieldByName('IsBusiness').AsBoolean then
+      CustomAttrs := 'class="company_row"';
   end;
 end;
 

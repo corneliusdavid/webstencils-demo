@@ -14,10 +14,10 @@
 
   @foreach CustList {
     <tr>
-      <td Align="right" style="padding-right: 10px;"><a href="\custedit?cust_no=@loop.CustomerId">@loop.CustomerId</a></td>
-      <td>@loop.FirstName</td>
-      <td>@loop.LastName</td>
-      <td>@loop.Company</td>
+      <td align="right" width="40" style="padding-right: 5px;"><a href="\custedit?cust_no=@loop.CustomerId">@loop.CustomerId</a></td>
+      <td @if loop.IsBusiness { class="company_row" }>@loop.FirstName</td>
+      <td @if loop.IsBusiness { class="company_row" }>@loop.LastName</td>
+      <td @if loop.IsBusiness { class="company_row" }>@loop.Company</td>
     </tr>
   }
 </table>

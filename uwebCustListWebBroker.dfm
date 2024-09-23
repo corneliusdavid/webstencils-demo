@@ -142,6 +142,9 @@ object webCustListWebBroker: TwebCustListWebBroker
       '        button:hover {'
       '            background-color: #45a049;'
       '        }'
+      '        .company_row {'
+      '            background-color: #e2e2e2;'
+      '        }'
       '    </style>'
       '</head>'
       '<body>'
@@ -169,9 +172,9 @@ object webCustListWebBroker: TwebCustListWebBroker
     Columns = <
       item
         Align = haRight
-        Custom = 'style="padding-right: 10px;"'
+        Custom = 'width="40" style="padding-right: 5px;"'
         FieldName = 'CustomerId'
-        Title.Custom = 'style="padding-right: 10px;"'
+        Title.Custom = 'width="40" style="padding-right: 5px;"'
         Title.Align = haRight
         Title.BgColor = 'Silver'
         Title.Caption = 'ID'
@@ -196,6 +199,7 @@ object webCustListWebBroker: TwebCustListWebBroker
       end>
     MaxRows = 0
     DataSet = dmCust.qryCustomers
+    TableAttributes.Align = haCenter
     TableAttributes.BgColor = 'White'
     TableAttributes.Border = 1
     TableAttributes.CellSpacing = 10

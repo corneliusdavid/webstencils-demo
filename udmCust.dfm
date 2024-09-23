@@ -52,6 +52,7 @@ object dmCust: TdmCust
     end
   end
   object qryCustomers: TFDQuery
+    OnCalcFields = qryCustomersCalcFields
     Connection = FDConnChinook
     SQL.Strings = (
       'SELECT c.CustomerId, c.FirstName, c.LastName, c.Company, '
@@ -98,6 +99,11 @@ object dmCust: TdmCust
       Origin = 'TotalInvoices'
       ProviderFlags = []
       ReadOnly = True
+    end
+    object qryCustomersIsBusiness: TBooleanField
+      FieldKind = fkCalculated
+      FieldName = 'IsBusiness'
+      Calculated = True
     end
   end
   object qryCustDetails: TFDQuery
