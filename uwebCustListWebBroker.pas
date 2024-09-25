@@ -15,6 +15,7 @@ type
     pptblCustomers: TDataSetTableProducer;
     ppAccessDenied: TPageProducer;
     ppCustEdit: TPageProducer;
+    ppStyles: TPageProducer;
     procedure webCustListWebBrokerwaLoginVerifyAction(Sender: TObject; Request: TWebRequest; Response: TWebResponse;
       var Handled: Boolean);
     procedure ppAllHTMLTags(Sender: TObject; Tag: TTag; const TagString: string; TagParams: TStrings;
@@ -59,6 +60,8 @@ begin
     ReplaceText := APP_VERSION
   else if SameText(TagString, 'Header') then
     ReplaceText := ppPageHeader.Content
+  else if SameText(TagString, 'IncludeCSS') then
+    ReplaceText := ppStyles.Content
   else if SameText(TagString, 'Footer') then
     ReplaceText := ppPageFooter.Content
   else if SameText(TagString, 'Customers') then

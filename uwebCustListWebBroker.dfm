@@ -26,7 +26,7 @@ object webCustListWebBroker: TwebCustListWebBroker
       PathInfo = '/custedit'
       OnAction = webCustListWebBrokerwaEditCustomerAction
     end>
-  Height = 340
+  Height = 406
   Width = 498
   object ppIndex: TPageProducer
     HTMLFile = 'index-wbroker.html'
@@ -82,70 +82,8 @@ object webCustListWebBroker: TwebCustListWebBroker
         '  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/j' +
         's/bootstrap.min.js"></script>'
       '<style>'
-      '        body {'
-      '            font-family: Arial, sans-serif;'
-      '            line-height: 1.6;'
-      '            margin: 0;'
-      '            padding: 20px;'
-      '            background-color: #f4f4f4;'
-      '        }'
-      '        .container {'
-      '            max-width: 800px;'
-      '            margin: auto;'
-      '            background: white;'
-      '            padding: 20px;'
-      '            border-radius: 5px;'
-      '            box-shadow: 0 0 10px rgba(0,0,0,0.1);'
-      '        }'
-      '        h1 {'
-      '            text-align: center;'
-      '            color: #333;'
-      '        }'
-      '        form {'
-      '            display: grid;'
-      '            gap: 10px;'
-      '        }'
-      '        .form-group {'
-      '            display: flex;'
-      '            align-items: center;'
-      '        }'
-      '        label {'
-      '            font-weight: bold;'
-      '            width: 150px;'
-      '            text-align: right;'
-      '            margin-right: 10px;'
-      '        }'
-      '        input, select {'
-      '            flex: 1;'
-      '            padding: 8px;'
-      '            border: 1px solid #ddd;'
-      '            border-radius: 4px;'
-      '            box-sizing: border-box;'
-      '        }'
-      '        .input-group {'
-      '            display: flex;'
-      '            gap: 10px;'
-      '        }'
-      '        .input-group input {'
-      '            flex: 1;'
-      '        }'
-      '        button {'
-      '            background-color: #4CAF50;'
-      '            color: white;'
-      '            padding: 10px 15px;'
-      '            border: none;'
-      '            border-radius: 4px;'
-      '            cursor: pointer;'
-      '            font-size: 16px;'
-      '            margin-left: 160px;'
-      '        }'
-      '        button:hover {'
-      '            background-color: #45a049;'
-      '        }'
-      '        .company_row {'
-      '            background-color: #e2e2e2;'
-      '        }'
-      '    </style>'
+      '  <#IncludeCSS>'
+      '</style>'
       '</head>'
       '<body>'
       ''
@@ -164,8 +102,8 @@ object webCustListWebBroker: TwebCustListWebBroker
         '  <div class="col-lg-12 bg-light justify-content-center shadow p' +
         '-3 mb-5 bg-body rounded">')
     OnHTMLTag = ppAllHTMLTags
-    Left = 352
-    Top = 40
+    Left = 344
+    Top = 32
   end
   object pptblCustomers: TDataSetTableProducer
     Caption = 'All Customers'
@@ -220,5 +158,10 @@ object webCustListWebBroker: TwebCustListWebBroker
     OnHTMLTag = ppCustEditHTMLTag
     Left = 122
     Top = 237
+  end
+  object ppStyles: TPageProducer
+    HTMLFile = 'style.css'
+    Left = 304
+    Top = 280
   end
 end
