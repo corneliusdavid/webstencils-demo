@@ -24,13 +24,10 @@ type
       var Handled: Boolean);
     procedure wsEngineCustListError(Sender: TObject; const AMessage: string);
   private
+    // these are NOT accessible by the WebStencilsEngine
     FVersion: string;
     FTitle: string;
   public
-    // this will not work in the WebStencilsEngine
-    const
-      WebTitle = 'Customer List for WebStencils';
-      WebVersion = '0.3';
     // these will be available by the WebStencilsEngine parser
     property Title: string read FTitle write FTitle;
     property Version: string read FVersion write FVersion;
@@ -119,8 +116,8 @@ end;
 
 procedure TwebCustListWebStencil.WebModuleCreate(Sender: TObject);
 begin
-  FTitle := WebTitle;
-  FVersion := WebVersion;
+  FTitle := 'Customer List for WebStencils';
+  FVersion := '0.3';
   wsEngineCustList.AddVar('App', Self, False);
 end;
 
