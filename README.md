@@ -69,8 +69,9 @@ I've used two different "Chinook" sample databases, one had singular table names
 
 ### Why HTML Tables?
 
-The customer list is built using the old HTML table tags (`<table>`, `<tr>`, `<td>`, etc.) because that's the simple and default way that the old WebBroker server apps built using the `TDataSetTableProducer` were done. The new WebStencils version builds the same HTML result so you can compare how it's done and the resulting web pages will be nearly identical. It's not how modern websites should be built, of course.
+The customer list is built using the old HTML table tags (`<table>`, `<tr>`, `<td>`, etc.) because that's the simple and default way that the old WebBroker server apps built using the `TDataSetTableProducer` components were done. The new WebStencils version builds the same HTML result so you can compare how it's done and the resulting web pages will be nearly identical. Modern websites typically construct CSS-style tables, a benefit that can be realized by switching from DataSetTableProducers to WebStencils.
 
-## Ongoing enhancements
+## Blog
 
-This is a new technology and as I have time and learn more about WebStencils, I will make enhancements to this repository.
+Read my ["Introducing WebStencils"](https://corneliusconcepts.tech/introducing-webstencils) blog to learn more about the technology behind these programs and why WebStencils is cool!
+
