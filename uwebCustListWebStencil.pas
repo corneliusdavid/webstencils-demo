@@ -1,5 +1,9 @@
 unit uwebCustListWebStencil;
 
+{$IF CompilerVersion <> 36}
+  {$MESSAGE FATAL 'This demo of WebStencils only works with Delphi 12.2 or 12.3.'}
+{$ENDIF}
+
 interface
 
 uses
