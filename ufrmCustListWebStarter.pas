@@ -23,9 +23,6 @@ type
   private
     FServer: TIdHTTPWebBrokerBridge;
     procedure StartServer;
-    { Private declarations }
-  public
-    { Public declarations }
   end;
 
 var
