@@ -1,6 +1,4 @@
-/__history
-*.db
-*.dsv
-*.rsm
-*.~dsk
-*.dsk
+﻿*.dsv
+*.res
+*.zip
+chinook.db

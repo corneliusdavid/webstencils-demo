@@ -61,3 +61,20 @@ button:hover {
 .company_row {
     background-color: #e2e2e2;
 }
+body {
+    background-color: #c8c9ca;
+}
+.banner {
+    background-color: #007bff;
+    color: white;
+    padding: 20px 0;
+    margin-bottom: 30px;
+}
+.banner h1 {
+    margin: 0;
+    font-weight: 300;
+}
+.login-card {
+    max-width: 400px;
+    margin: 0 auto;
+}
