@@ -2,3 +2,7 @@
 *.res
 *.zip
 chinook.db
+/__history
+*.rsm
+*.~dsk
+*.dsk
