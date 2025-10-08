@@ -1,5 +1,9 @@
 # WebStencils Demo #
 
+[![Delphi](https://img.shields.io/badge/Delphi-RAD%20Studio-red.svg)](https://www.embarcadero.com/products/rad-studio)
+[![Platform](https://img.shields.io/badge/Platform-Windows-blue.svg)]()
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
 Delphi 12.2 introduced WebStencils, a script-based way to process text similar to the ASP.NET Razor technology. Its primary use is to generate dynamic HTML from a WebBroker server application but can be used in other ways to generate XML, JSON, or any type of textual output from a template.
 
 This repository contains a couple of very simple Delphi 12.2 WebBroker applications (run as Windows VCL programs which launch a web browser) to compare templates made with the HTML-style tags used in `TPageProducer` components, with the new "@" symbol tags used in the new `TWebStencilsProcessor` components. All the project and HTML files are in one folder and the two projects share a data module for accessing the [Chinook SQLite database](https://www.sqlitetutorial.net/sqlite-sample-database) (not included).
